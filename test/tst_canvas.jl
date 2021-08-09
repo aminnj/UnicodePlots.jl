@@ -84,7 +84,7 @@ end
             )
             @test_reference(
                 "references/canvas/$(str)_print_nocolor.txt",
-                @io2str(print(::IO, c)),
+                " "*@io2str(print(::IO, c)),
                 render = BeforeAfterFull()
             )
             @test_reference(
@@ -120,7 +120,7 @@ end
     lines!(c, 1.2, 0.0, 1.2, 1.2, :normal)
     @test_reference(
         "references/canvas/color_mixing.txt",
-        @io2str(print(IOContext(::IO, :color=>true), c)),
+        " "*@io2str(print(IOContext(::IO, :color=>true), c)),
         render = BeforeAfterFull()
     )
 end
