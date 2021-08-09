@@ -1,6 +1,6 @@
 @testset "positional types" begin
     dct = Dict("foo" => 37, "bar" => 23)
-    p = @inferred barplot(dct)
+    p = @inferred Plot barplot(dct)
     @test_reference(
         "references/barplot/default.txt",
         @io2str(print(IOContext(::IO, :color=>true), p)),
@@ -18,7 +18,7 @@
     )
 
     dct = Dict("foo" => 37., :bar => 23., 2.1 => 10)
-    p = @inferred barplot(dct)
+    p = @inferred Plot barplot(dct)
     @test_reference(
         "references/barplot/default_mixed.txt",
         @io2str(print(IOContext(::IO, :color=>true), p)),
@@ -26,21 +26,21 @@
     )
 
     dct = Dict(:foo => 37, :bar => 23)
-    p = @inferred barplot(dct)
+    p = @inferred Plot barplot(dct)
     @test_reference(
         "references/barplot/default.txt",
         @io2str(print(IOContext(::IO, :color=>true), p)),
         render = BeforeAfterFull()
     )
 
-    p = @inferred barplot([:bar, :foo], Int16[23, 37])
+    p = @inferred Plot barplot([:bar, :foo], Int16[23, 37])
     @test_reference(
         "references/barplot/default.txt",
         @io2str(print(IOContext(::IO, :color=>true), p)),
         render = BeforeAfterFull()
     )
 
-    p = @inferred barplot(["bar", "foo"], [23, 37])
+    p = @inferred Plot barplot(["bar", "foo"], [23, 37])
     @test_reference(
         "references/barplot/default.txt",
         @io2str(print(IOContext(::IO, :color=>true), p)),
@@ -57,7 +57,7 @@
         render = BeforeAfterFull()
     )
 
-    p = @inferred barplot(["bar", "foo"], [23, 37])
+    p = @inferred Plot barplot(["bar", "foo"], [23, 37])
     @test @inferred(barplot!(p, :zoom, 90.)) === p
     @test_reference(
         "references/barplot/default2.txt",
@@ -65,7 +65,7 @@
         render = BeforeAfterFull()
     )
 
-    p = @inferred barplot(["bar", "foo"], [23, 37])
+    p = @inferred Plot barplot(["bar", "foo"], [23, 37])
     @test_throws MethodError barplot!(p, Dict("zoom" => 90.))
     @test @inferred(barplot!(p, Dict("zoom" => 90))) === p
     @test_reference(
@@ -74,7 +74,7 @@
         render = BeforeAfterFull()
     )
 
-    p = @inferred barplot(["bar", "foo"], [23, 37])
+    p = @inferred Plot barplot(["bar", "foo"], [23, 37])
     @test @inferred(barplot!(p, Dict(:zoom => 90))) === p
     @test_reference(
         "references/barplot/default2.txt",
@@ -82,7 +82,7 @@
         render = BeforeAfterFull()
     )
 
-    p = @inferred barplot(2:6, 11:15)
+    p = @inferred Plot barplot(2:6, 11:15)
     @test_reference(
         "references/barplot/ranges.txt",
         @io2str(print(IOContext(::IO, :color=>true), p)),
