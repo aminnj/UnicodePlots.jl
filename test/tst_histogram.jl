@@ -53,7 +53,7 @@ x = randn(10000)
     p = @inferred histogram([0.1f0, 0.1f0, 0f0])
     @test_reference(
         "references/histogram/float32.txt",
-        @io2str(print(IOContext(::IO, :color=>true), p)),
+        "TXT"*@io2str(print(IOContext(::IO, :color=>true), p)),
         render = BeforeAfterFull()
     )
 end
@@ -73,14 +73,14 @@ end
         render = BeforeAfterFull()
     )
     p = nothing
-    p = @test_logs (:warn, r"`bins`.+deprecated") @inferred histogram(x, bins = 5, closed = :right)
+    p = @test_deprecated @inferred histogram(x, bins = 5, closed = :right)
     @test_reference(
         "references/histogram/hist_params.txt",
         @io2str(print(IOContext(::IO, :color=>true), p)),
         render = BeforeAfterFull()
     )
     p = nothing
-    p = @test_logs (:warn, r"deprecated") @inferred histogram(x, 5, closed = :right)
+    p = @test_deprecated @inferred histogram(x, 5, closed = :right)
     @test_reference(
         "references/histogram/hist_params.txt",
         @io2str(print(IOContext(::IO, :color=>true), p)),
